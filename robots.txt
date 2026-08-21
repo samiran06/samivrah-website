@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# Replace this address with your final website URL before submitting to Google.
-Sitemap: https://your-domain.com/sitemap.xml
+Sitemap: https://samiran06.github.io/samivrah-website/sitemap.xml
