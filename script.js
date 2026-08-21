@@ -8,7 +8,75 @@ googleTagScript.src =
 document.head.appendChild(googleTagScript);
 
 window.dataLayer = window.dataLayer || [];
+if (footerTarget) {
+  footerTarget.innerHTML = footerHTML;
+}
+// Force every old contact link to use email only
+const EMAIL_CONTACT_LINK =
+  `mailto:${SAMIVRAH_EMAIL}?subject=${EMAIL_SUBJECT}`;
 
+document
+  .querySelectorAll('a[href*="wa.me"], a[href^="tel:"]')
+  .forEach((link) => {
+    link.href = EMAIL_CONTACT_LINK;
+    link.removeAttribute("target");
+    link.removeAttribute("rel");
+
+    const linkText = link.textContent.toLowerCase();
+
+    if (
+      linkText.includes("whatsapp") ||
+      linkText.includes("chat")
+    ) {
+      link.textContent = "Email SAMIVRAH ↗";
+    }
+  });
+
+// Change every form button to email
+document
+  .querySelectorAll('.lead-form button[type="submit"]')
+  .forEach((button) => {
+    button.textContent = "Continue by Email →";
+  });
+
+// Remove old WhatsApp wording from forms
+document
+  .querySelectorAll(".lead-form .eyebrow")
+  .forEach((text) => {
+    if (text.textContent.toLowerCase().includes("whatsapp")) {
+      text.textContent = "Email enquiry";
+    }
+  });
+
+// Replace old phone and WhatsApp contact rows
+const oldContactRows = Array.from(
+  document.querySelectorAll(".fee-row")
+).filter((row) => {
+  const label = row.querySelector("strong");
+
+  if (!label) return false;
+
+  const value = label.textContent
+    .trim()
+    .toLowerCase();
+
+  return value === "phone" || value === "whatsapp";
+});
+
+if (oldContactRows.length) {
+  oldContactRows[0].innerHTML = `
+    <strong>Email</strong>
+    <span>
+      <a href="mailto:${SAMIVRAH_EMAIL}">
+        ${SAMIVRAH_EMAIL}
+      </a>
+    </span>
+  `;
+
+  oldContactRows.slice(1).forEach((row) => {
+    row.remove();
+  });
+}
 window.gtag = function () {
   window.dataLayer.push(arguments);
 };
