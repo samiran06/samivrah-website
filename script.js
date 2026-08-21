@@ -93,12 +93,16 @@ const headerHTML = `
         </a>
 
         <a href="social-media-management.html">
-          Social Media
-        </a>
+  Social Media
+</a>
 
-        <a href="about.html">
-          About
-        </a>
+<a href="numerology-consultation.html">
+  Numerology
+</a>
+
+<a href="about.html">
+  About
+</a>
 
         <a href="contact.html">
           Contact
