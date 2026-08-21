@@ -1,3 +1,57 @@
+// Google Analytics 4
+const GA4_MEASUREMENT_ID = "G-NY910DZLEE";
+
+const googleTagScript = document.createElement("script");
+googleTagScript.async = true;
+googleTagScript.src =
+  `https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`;
+document.head.appendChild(googleTagScript);
+
+window.dataLayer = window.dataLayer || [];
+
+window.gtag = function () {
+  window.dataLayer.push(arguments);
+};
+
+window.gtag("js", new Date());
+window.gtag("config", GA4_MEASUREMENT_ID);
+
+// Track WhatsApp and telephone clicks as leads
+document.addEventListener("click", function (event) {
+  const leadLink = event.target.closest(
+    'a[href*="wa.me"], a[href^="tel:"]'
+  );
+
+  if (!leadLink) return;
+
+  const method = leadLink.href.includes("wa.me")
+    ? "whatsapp"
+    : "phone";
+
+  window.gtag("event", "generate_lead", {
+    method: method,
+    page_path: window.location.pathname
+  });
+});
+
+// Track valid website requirement forms as leads
+document.querySelectorAll(".lead-form").forEach(function (form) {
+  form.addEventListener("submit", function () {
+    const data = new FormData(form);
+
+    if (
+      data.get("name") &&
+      data.get("phone") &&
+      data.get("service")
+    ) {
+      window.gtag("event", "generate_lead", {
+        method: "website_form",
+        service: String(data.get("service")),
+        page_path: window.location.pathname
+      });
+    }
+  });
+});
 const SAMIVRAH_PHONE = "916295586761";
 const WHATSAPP_BASE = `https://wa.me/${SAMIVRAH_PHONE}`;
 
