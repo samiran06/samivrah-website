@@ -97,7 +97,7 @@ const headerHTML = `
 </a>
 
 <a href="numerology-consultation.html">
-  Numerology
+  ✦ SAMIVRAH Numerology
 </a>
 
 <a href="about.html">
