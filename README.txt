@@ -8,7 +8,7 @@ MAIN FILES
 ----------
 index.html      = Homepage
 style.css       = Complete website design and mobile layout
-script.js       = Menu, animation, popup and WhatsApp form
+script.js       = Menu, animation, email enquiry form and analytics
 images/         = SAMIVRAH logo, icon and social image
 
 The folder also contains separate SEO pages for every service.
@@ -33,17 +33,23 @@ Do not rename these folders or files unless you also change every link:
 - script.js
 - index.html
 
-CHANGE PHONE OR WHATSAPP NUMBER
--------------------------------
-Open script.js and change:
-const SAMIVRAH_PHONE = "916295586761";
+CONTACT METHOD
+--------------
+The website uses email-only enquiries:
+samivrah.business@gmail.com
 
-The number must include country code 91 and must not contain spaces or +.
+Update SAMIVRAH_EMAIL in script.js if the business email changes.
 
-RECRUITMENT FEES CURRENTLY SHOWN
---------------------------------
-- ₹3,999 one-time, non-refundable registration fee
-- After selection, a separate designation-wise fee equal to one month of each selected candidate's agreed salary
+CURRENT SERVICE STRUCTURE
+-------------------------
+- Social Media Management
+- Websites & Web Applications
+- Business Technology Solutions
+- Recruitment Solutions — Coming Soon
+- SAMIVRAH Numerology — separate guidance vertical
+
+The ₹999 introductory social package includes four static posts,
+captions and hashtag support, one platform and one revision.
 
 BEFORE SEO SUBMISSION
 ---------------------

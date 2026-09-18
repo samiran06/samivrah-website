@@ -56,180 +56,63 @@ document.addEventListener(
   }
 );
 
-// Header
+// Shared header
 const headerHTML = `
   <header class="site-header">
     <div class="container nav-wrap">
-
-      <a class="logo"
-         href="index.html"
-         aria-label="SAMIVRAH home">
-
-        <img
-          src="images/samivrah-logo.png"
-          alt="SAMIVRAH Business Solutions logo"
-        >
-
+      <a class="logo" href="index.html" aria-label="SAMIVRAH home">
+        <img src="images/samivrah-logo.png" alt="SAMIVRAH Business Solutions logo">
       </a>
-
-      <button
-        class="menu-button"
-        type="button"
-        aria-label="Open menu"
-        aria-expanded="false">
-        ☰
-      </button>
-
-      <nav
-        class="main-nav"
-        aria-label="Main navigation">
-
-        <a href="recruitment-services.html">
-          Recruitment
-        </a>
-
-        <a href="web-solutions.html">
-          Web Solutions
-        </a>
- 
-        <a href="social-media-management.html">
-  Social Media
-</a>
-
-<a href="numerology-consultation.html">
-  ✦ SAMIVRAH Numerology
-</a>
-
-<a href="about.html">
-  About
-</a>
-
-        <a href="contact.html">
-          Contact
-        </a>
-
+      <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="social-media-management.html">Social Media</a>
+        <a href="web-solutions.html">Web Solutions</a>
+        <a href="business-technology-solutions.html">Business Technology</a>
+        <a href="recruitment-services.html">Recruitment <small>Coming Soon</small></a>
+        <a href="numerology-consultation.html">✦ Numerology</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
       </nav>
-
-      <a
-        class="button button-dark header-cta"
-        href="mailto:${SAMIVRAH_EMAIL}?subject=${EMAIL_SUBJECT}">
-        Email Us ↗
-      </a>
-
+      <a class="button button-dark header-cta" href="mailto:${SAMIVRAH_EMAIL}?subject=${EMAIL_SUBJECT}">Email Us ↗</a>
     </div>
   </header>
 `;
 
-// Footer
+// Shared footer
 const footerHTML = `
   <footer class="site-footer">
-
     <div class="container footer-grid">
-
       <div class="footer-col">
-
-        <img
-          class="footer-logo"
-          src="images/samivrah-white-logo.png"
-          alt="SAMIVRAH Business Solutions"
-        >
-
-        <p>
-          Recruitment, web solutions and
-          digital growth support for service
-          businesses across India.
-        </p>
-
+        <img class="footer-logo" src="images/samivrah-white-logo.png" alt="SAMIVRAH Business Solutions">
+        <p>Social media, websites and practical business technology for growing businesses across India.</p>
       </div>
-
       <div class="footer-col">
-
-        <p class="footer-title">
-          Recruitment
-        </p>
-
-        <a href="facility-management-recruitment.html">
-          Facility management
-        </a>
-
-        <a href="security-guard-recruitment.html">
-          Security staff
-        </a>
-
-        <a href="housekeeping-staff-recruitment.html">
-          Housekeeping staff
-        </a>
-
-        <a href="hospitality-recruitment.html">
-          Hospitality professionals
-        </a>
-
+        <p class="footer-title">Digital services</p>
+        <a href="social-media-management.html">Social media management</a>
+        <a href="web-solutions.html">Websites &amp; web apps</a>
+        <a href="business-technology-solutions.html">Business technology</a>
+        <a href="recruitment-services.html">Recruitment — Coming Soon</a>
       </div>
-
       <div class="footer-col">
-
-        <p class="footer-title">
-          Company
-        </p>
-
-        <a href="about.html">
-          About SAMIVRAH
-        </a>
-
-        <a href="contact.html">
-          Contact
-        </a>
-
-        <a href="privacy-policy.html">
-          Privacy policy
-        </a>
-
-        <a href="terms.html">
-          Service terms
-        </a>
-
+        <p class="footer-title">Company</p>
+        <a href="about.html">About SAMIVRAH</a>
+        <a href="numerology-consultation.html">SAMIVRAH Numerology</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy-policy.html">Privacy policy</a>
+        <a href="terms.html">Service terms</a>
       </div>
-
       <div class="footer-col">
-
-        <p class="footer-title">
-          Start a conversation
-        </p>
-
-        <a href="mailto:${SAMIVRAH_EMAIL}">
-          ${SAMIVRAH_EMAIL}
-        </a>
-
-        <p>
-          Serving businesses across India
-        </p>
-
+        <p class="footer-title">Email SAMIVRAH</p>
+        <a href="mailto:${SAMIVRAH_EMAIL}">${SAMIVRAH_EMAIL}</a>
+        <p>Remote services across India</p>
       </div>
-
     </div>
-
     <div class="container footer-bottom">
-
-      <span>
-        © <span id="current-year"></span>
-        SAMIVRAH. All rights reserved.
-      </span>
-
-      <span>
-        Business solutions built around
-        real requirements.
-      </span>
-
+      <span>© <span id="current-year"></span> SAMIVRAH. All rights reserved.</span>
+      <span>Practical digital solutions built around real requirements.</span>
     </div>
-
   </footer>
-
-  <a
-    class="whatsapp-float"
-    href="mailto:${SAMIVRAH_EMAIL}?subject=${EMAIL_SUBJECT}"
-    aria-label="Email SAMIVRAH">
-    ✉ Email Us
-  </a>
+  <a class="whatsapp-float" href="mailto:${SAMIVRAH_EMAIL}?subject=${EMAIL_SUBJECT}" aria-label="Email SAMIVRAH">✉ Email Us</a>
 `;
 
 // Add header and footer
