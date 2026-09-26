@@ -1,642 +1,205 @@
-// Google Analytics 4
 const GA4_MEASUREMENT_ID = "G-NY910DZLEE";
+const SAMIVRAH_EMAIL = "samivrah.business@gmail.com";
+const SAMIVRAH_PHONE_DISPLAY = "+91 62955 86761";
+const SAMIVRAH_PHONE_LINK = "+916295586761";
 
-const googleTagScript =
-  document.createElement("script");
-
-googleTagScript.async = true;
-
-googleTagScript.src =
-  `https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`;
-
-document.head.appendChild(googleTagScript);
+const analyticsScript = document.createElement("script");
+analyticsScript.async = true;
+analyticsScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`;
+document.head.appendChild(analyticsScript);
 
 window.dataLayer = window.dataLayer || [];
-
-window.gtag = function () {
-  window.dataLayer.push(arguments);
-};
-
+window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
 window.gtag("js", new Date());
+window.gtag("config", GA4_MEASUREMENT_ID);
 
-window.gtag(
-  "config",
-  GA4_MEASUREMENT_ID
-);
+const businessSubject = encodeURIComponent("Business requirement for SAMIVRAH");
 
-// Company email
-const SAMIVRAH_EMAIL =
-  "samivrah.business@gmail.com";
-
-const EMAIL_SUBJECT =
-  encodeURIComponent(
-    "Business requirement for SAMIVRAH"
-  );
-
-// Track email clicks as leads
-document.addEventListener(
-  "click",
-  function (event) {
-    const emailLink =
-      event.target.closest(
-        'a[href^="mailto:"]'
-      );
-
-    if (!emailLink) return;
-
-    window.gtag(
-      "event",
-      "generate_lead",
-      {
-        method: "email",
-        page_path:
-          window.location.pathname
-      }
-    );
-  }
-);
-
-// Shared header
 const headerHTML = `
+  <div class="utility-bar">
+    <div class="container utility-inner">
+      <p>Digital growth support for service businesses</p>
+      <div>
+        <a href="tel:${SAMIVRAH_PHONE_LINK}">Call ${SAMIVRAH_PHONE_DISPLAY}</a>
+        <a href="mailto:${SAMIVRAH_EMAIL}">${SAMIVRAH_EMAIL}</a>
+      </div>
+    </div>
+  </div>
   <header class="site-header">
     <div class="container nav-wrap">
       <a class="logo" href="index.html" aria-label="SAMIVRAH home">
         <img src="images/samivrah-logo.png" alt="SAMIVRAH Business Solutions logo">
       </a>
-      <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
-      <nav class="main-nav" aria-label="Main navigation">
+      <button class="menu-button" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="main-navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav" id="main-navigation" aria-label="Main navigation">
+        <a href="index.html">Home</a>
         <a href="social-media-management.html">Social Media</a>
         <a href="web-solutions.html">Web Solutions</a>
-        <a href="business-technology-solutions.html">Business Technology</a>
-        <a href="recruitment-services.html">Recruitment <small>Coming Soon</small></a>
-        <a href="numerology-consultation.html">✦ Numerology</a>
+        <a href="business-technology-solutions.html">Business Systems</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
       </nav>
-      <a class="button button-dark header-cta" href="mailto:${SAMIVRAH_EMAIL}?subject=${EMAIL_SUBJECT}">Email Us ↗</a>
+      <a class="button button-dark header-cta" href="contact.html">Get a Proposal <span>↗</span></a>
     </div>
   </header>
 `;
 
-// Shared footer
 const footerHTML = `
   <footer class="site-footer">
-    <div class="container footer-grid">
-      <div class="footer-col">
+    <div class="container footer-top">
+      <div class="footer-brand">
         <img class="footer-logo" src="images/samivrah-white-logo.png" alt="SAMIVRAH Business Solutions">
-        <p>Social media, websites and practical business technology for growing businesses across India.</p>
+        <p>Websites, social media and practical digital systems for ambitious service businesses.</p>
+        <div class="footer-contact-pills">
+          <a href="tel:${SAMIVRAH_PHONE_LINK}">☎ ${SAMIVRAH_PHONE_DISPLAY}</a>
+          <a href="mailto:${SAMIVRAH_EMAIL}">✉ ${SAMIVRAH_EMAIL}</a>
+        </div>
       </div>
       <div class="footer-col">
-        <p class="footer-title">Digital services</p>
+        <p class="footer-title">Services</p>
+        <a href="web-solutions.html">Business websites</a>
         <a href="social-media-management.html">Social media management</a>
-        <a href="web-solutions.html">Websites &amp; web apps</a>
-        <a href="business-technology-solutions.html">Business technology</a>
-        <a href="recruitment-services.html">Recruitment — Coming Soon</a>
+        <a href="business-technology-solutions.html">Lead tracking &amp; business systems</a>
       </div>
       <div class="footer-col">
         <p class="footer-title">Company</p>
         <a href="about.html">About SAMIVRAH</a>
-        <a href="numerology-consultation.html">SAMIVRAH Numerology</a>
         <a href="contact.html">Contact</a>
-        <a href="privacy-policy.html">Privacy policy</a>
-        <a href="terms.html">Service terms</a>
+        <a href="recruitment-services.html">Recruitment — Coming Soon</a>
+        <a href="numerology-consultation.html">Numerology division</a>
       </div>
       <div class="footer-col">
-        <p class="footer-title">Email SAMIVRAH</p>
-        <a href="mailto:${SAMIVRAH_EMAIL}">${SAMIVRAH_EMAIL}</a>
-        <p>Remote services across India</p>
+        <p class="footer-title">Information</p>
+        <a href="privacy-policy.html">Privacy policy</a>
+        <a href="terms.html">Service terms</a>
+        <p>Remote delivery across India</p>
+        <p>Mon–Sat · 9:30 AM–6:30 PM</p>
       </div>
     </div>
     <div class="container footer-bottom">
       <span>© <span id="current-year"></span> SAMIVRAH. All rights reserved.</span>
-      <span>Practical digital solutions built around real requirements.</span>
+      <span>Technology · Visibility · Growth</span>
     </div>
   </footer>
-  <a class="whatsapp-float" href="mailto:${SAMIVRAH_EMAIL}?subject=${EMAIL_SUBJECT}" aria-label="Email SAMIVRAH">✉ Email Us</a>
+  <div class="mobile-actions" aria-label="Quick contact actions">
+    <a href="tel:${SAMIVRAH_PHONE_LINK}"><span>☎</span> Call now</a>
+    <a href="mailto:${SAMIVRAH_EMAIL}?subject=${businessSubject}"><span>✉</span> Email us</a>
+  </div>
 `;
 
-// Add header and footer
-const headerTarget =
-  document.getElementById(
-    "site-header"
-  );
+const headerTarget = document.getElementById("site-header");
+const footerTarget = document.getElementById("site-footer");
+if (headerTarget) headerTarget.innerHTML = headerHTML;
+if (footerTarget) footerTarget.innerHTML = footerHTML;
 
-const footerTarget =
-  document.getElementById(
-    "site-footer"
-  );
+const currentPage = window.location.pathname.split("/").pop() || "index.html";
+document.querySelectorAll(".main-nav a").forEach((link) => {
+  if (link.getAttribute("href") === currentPage) link.classList.add("active");
+});
 
-if (headerTarget) {
-  headerTarget.innerHTML =
-    headerHTML;
+const menuButton = document.querySelector(".menu-button");
+const mainNav = document.querySelector(".main-nav");
+
+function closeMenu() {
+  if (!menuButton || !mainNav) return;
+  mainNav.classList.remove("open");
+  menuButton.classList.remove("open");
+  menuButton.setAttribute("aria-expanded", "false");
+  document.body.classList.remove("menu-open");
 }
 
-if (footerTarget) {
-  footerTarget.innerHTML =
-    footerHTML;
+if (menuButton && mainNav) {
+  menuButton.addEventListener("click", () => {
+    const isOpen = mainNav.classList.toggle("open");
+    menuButton.classList.toggle("open", isOpen);
+    menuButton.setAttribute("aria-expanded", String(isOpen));
+    document.body.classList.toggle("menu-open", isOpen);
+  });
+  mainNav.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+  window.addEventListener("resize", () => { if (window.innerWidth > 980) closeMenu(); });
 }
 
-// Convert all old contact links to email
-const emailContactLink =
-  `mailto:${SAMIVRAH_EMAIL}?subject=${EMAIL_SUBJECT}`;
+const yearTarget = document.getElementById("current-year");
+if (yearTarget) yearTarget.textContent = new Date().getFullYear();
 
-document
-  .querySelectorAll(
-    'a[href*="wa.me"], a[href^="tel:"]'
-  )
-  .forEach((link) => {
-    link.href =
-      emailContactLink;
+document.addEventListener("click", (event) => {
+  const contactLink = event.target.closest('a[href^="mailto:"], a[href^="tel:"]');
+  if (!contactLink) return;
+  const method = contactLink.href.startsWith("tel:") ? "phone" : "email";
+  window.gtag("event", "generate_lead", { method, page_path: window.location.pathname });
+});
 
-    link.removeAttribute(
-      "target"
-    );
+document.querySelectorAll(".lead-form").forEach((form) => {
+  const grid = form.querySelector(".form-grid");
+  const emailInput = form.querySelector('input[name="email"]');
 
-    link.removeAttribute(
-      "rel"
-    );
+  if (grid && emailInput && !form.querySelector('input[name="phone"]')) {
+    const phoneLabel = document.createElement("label");
+    phoneLabel.innerHTML = 'Mobile number *<input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="10-digit mobile number">';
+    emailInput.closest("label").insertAdjacentElement("afterend", phoneLabel);
+  }
 
-    const linkText =
-      link.textContent.toLowerCase();
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const name = String(data.get("name") || "").trim();
+    const phone = String(data.get("phone") || "").trim();
+    const email = String(data.get("email") || "").trim();
+    const company = String(data.get("company") || "").trim();
+    const city = String(data.get("city") || "").trim();
+    const service = String(data.get("service") || "").trim();
+    const requirement = String(data.get("requirement") || "").trim();
+    const error = form.querySelector(".form-error");
+    const cleanPhone = phone.replace(/\D/g, "");
 
-    if (
-      linkText.includes("whatsapp") ||
-      linkText.includes("chat")
-    ) {
-      link.textContent =
-        "Email SAMIVRAH ↗";
-    }
-  });
-
-// Change all form buttons to email
-document
-  .querySelectorAll(
-    '.lead-form button[type="submit"]'
-  )
-  .forEach((button) => {
-    button.textContent =
-      "Continue by Email →";
-  });
-
-// Remove old messaging wording
-document
-  .querySelectorAll(
-    ".lead-form .eyebrow"
-  )
-  .forEach((text) => {
-    if (
-      text.textContent
-        .toLowerCase()
-        .includes("whatsapp")
-    ) {
-      text.textContent =
-        "Email enquiry";
-    }
-  });
-
-// Replace old wording throughout pages
-document
-  .querySelectorAll(
-    "p, span, small"
-  )
-  .forEach((element) => {
-    if (
-      element.children.length > 0
-    ) {
+    if (!name || cleanPhone.length < 10 || !email || !service) {
+      if (error) {
+        error.textContent = "Please enter your name, valid mobile number, email address and required service.";
+        error.style.display = "block";
+      }
       return;
     }
 
-    element.textContent =
-      element.textContent
-        .replace(
-          /on WhatsApp/gi,
-          "by email"
-        )
-        .replace(
-          /to WhatsApp/gi,
-          "to email"
-        )
-        .replace(
-          /WhatsApp/gi,
-          "email"
-        );
+    if (error) error.style.display = "none";
+
+    const message = [
+      "Hello SAMIVRAH, I am submitting a business requirement from the website.",
+      "",
+      `Name: ${name}`,
+      `Mobile: ${phone}`,
+      `Email: ${email}`,
+      `Company: ${company || "Not provided"}`,
+      `City: ${city || "Not provided"}`,
+      `Service: ${service}`,
+      `Requirement: ${requirement || "Please contact me to discuss"}`
+    ].join("\n");
+
+    window.gtag("event", "generate_lead", { method: "website_form", service, page_path: window.location.pathname });
+    window.location.href = `mailto:${SAMIVRAH_EMAIL}?subject=${encodeURIComponent(`${service} enquiry from ${name}`)}&body=${encodeURIComponent(message)}`;
   });
+});
 
-// Replace old direct-contact rows
-const oldContactRows =
-  Array.from(
-    document.querySelectorAll(
-      ".fee-row"
-    )
-  ).filter((row) => {
-    const label =
-      row.querySelector("strong");
-
-    if (!label) return false;
-
-    const value =
-      label.textContent
-        .trim()
-        .toLowerCase();
-
-    return (
-      value === "phone" ||
-      value === "whatsapp"
-    );
-  });
-
-if (oldContactRows.length) {
-  oldContactRows[0].innerHTML = `
-    <strong>Email</strong>
-
-    <span>
-      <a href="mailto:${SAMIVRAH_EMAIL}">
-        ${SAMIVRAH_EMAIL}
-      </a>
-    </span>
-  `;
-
-  oldContactRows
-    .slice(1)
-    .forEach((row) => {
-      row.remove();
+const revealItems = document.querySelectorAll("[data-reveal]");
+if ("IntersectionObserver" in window) {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("visible");
+      revealObserver.unobserve(entry.target);
     });
-}
-
-// Current navigation item
-const currentPage =
-  window.location.pathname
-    .split("/")
-    .pop() || "index.html";
-
-document
-  .querySelectorAll(
-    ".main-nav a"
-  )
-  .forEach((link) => {
-    if (
-      link.getAttribute("href") ===
-      currentPage
-    ) {
-      link.classList.add(
-        "active"
-      );
-    }
-  });
-
-// Mobile navigation
-const menuButton =
-  document.querySelector(
-    ".menu-button"
-  );
-
-const mainNav =
-  document.querySelector(
-    ".main-nav"
-  );
-
-if (menuButton && mainNav) {
-  menuButton.addEventListener(
-    "click",
-    () => {
-      const isOpen =
-        mainNav.classList.toggle(
-          "open"
-        );
-
-      menuButton.setAttribute(
-        "aria-expanded",
-        String(isOpen)
-      );
-
-      menuButton.textContent =
-        isOpen ? "×" : "☰";
-    }
-  );
-
-  mainNav
-    .querySelectorAll("a")
-    .forEach((link) => {
-      link.addEventListener(
-        "click",
-        () => {
-          mainNav.classList.remove(
-            "open"
-          );
-
-          menuButton.setAttribute(
-            "aria-expanded",
-            "false"
-          );
-
-          menuButton.textContent =
-            "☰";
-        }
-      );
-    });
-}
-
-// Copyright year
-const yearTarget =
-  document.getElementById(
-    "current-year"
-  );
-
-if (yearTarget) {
-  yearTarget.textContent =
-    new Date().getFullYear();
-}
-
-// Email forms
-document
-  .querySelectorAll(
-    ".lead-form"
-  )
-  .forEach((form) => {
-    // Convert any old phone input
-    // into an email input
-    const oldPhoneInput =
-      form.querySelector(
-        'input[name="phone"]'
-      );
-
-    if (oldPhoneInput) {
-      oldPhoneInput.name =
-        "email";
-
-      oldPhoneInput.type =
-        "email";
-
-      oldPhoneInput.inputMode =
-        "email";
-
-      oldPhoneInput.placeholder =
-        "Email address";
-
-      oldPhoneInput.autocomplete =
-        "email";
-
-      const oldPhoneLabel =
-        oldPhoneInput.closest(
-          "label"
-        );
-
-      if (
-        oldPhoneLabel &&
-        oldPhoneLabel.firstChild
-      ) {
-        oldPhoneLabel
-          .firstChild
-          .textContent =
-          "Email address *";
-      }
-    }
-
-    form.addEventListener(
-      "submit",
-      (event) => {
-        event.preventDefault();
-
-        const data =
-          new FormData(form);
-
-        const name =
-          String(
-            data.get("name") || ""
-          ).trim();
-
-        const email =
-          String(
-            data.get("email") || ""
-          ).trim();
-
-        const company =
-          String(
-            data.get("company") || ""
-          ).trim();
-
-        const city =
-          String(
-            data.get("city") || ""
-          ).trim();
-
-        const service =
-          String(
-            data.get("service") || ""
-          ).trim();
-
-        const requirement =
-          String(
-            data.get("requirement") ||
-            ""
-          ).trim();
-
-        const error =
-          form.querySelector(
-            ".form-error"
-          );
-
-        if (
-          !name ||
-          !email ||
-          !service
-        ) {
-          if (error) {
-            error.textContent =
-              "Please enter your name, email address and required service.";
-
-            error.style.display =
-              "block";
-          }
-
-          return;
-        }
-
-        if (error) {
-          error.style.display =
-            "none";
-        }
-
-        const message = [
-          "Hello SAMIVRAH, I am submitting a requirement from the website.",
-          `Name: ${name}`,
-          `Company: ${
-            company ||
-            "Not provided"
-          }`,
-          `Email: ${email}`,
-          `City: ${
-            city ||
-            "Not provided"
-          }`,
-          `Service: ${service}`,
-          `Requirement: ${
-            requirement ||
-            "Please contact me to discuss"
-          }`
-        ].join("\n");
-
-        const subject =
-          encodeURIComponent(
-            `${service} enquiry from ${name}`
-          );
-
-        const body =
-          encodeURIComponent(
-            message
-          );
-
-        window.location.href =
-          `mailto:${SAMIVRAH_EMAIL}?subject=${subject}&body=${body}`;
-
-        window.gtag(
-          "event",
-          "generate_lead",
-          {
-            method:
-              "website_form",
-            service: service,
-            page_path:
-              window.location.pathname
-          }
-        );
-      }
-    );
-  });
-
-// Scroll animations
-const revealItems =
-  document.querySelectorAll(
-    "[data-reveal]"
-  );
-
-if (
-  "IntersectionObserver" in window
-) {
-  const observer =
-    new IntersectionObserver(
-      (entries) => {
-        entries.forEach(
-          (entry) => {
-            if (
-              entry.isIntersecting
-            ) {
-              entry.target
-                .classList
-                .add("visible");
-
-              observer.unobserve(
-                entry.target
-              );
-            }
-          }
-        );
-      },
-      {
-        threshold: 0.12
-      }
-    );
-
-  revealItems.forEach(
-    (item) => {
-      observer.observe(item);
-    }
-  );
+  }, { threshold: 0.1 });
+  revealItems.forEach((item) => revealObserver.observe(item));
 } else {
-  revealItems.forEach(
-    (item) => {
-      item.classList.add(
-        "visible"
-      );
-    }
-  );
+  revealItems.forEach((item) => item.classList.add("visible"));
 }
 
-// Recruitment popup
-const popup =
-  document.getElementById(
-    "recruitment-popup"
-  );
-
-const popupClose =
-  document.getElementById(
-    "popup-close"
-  );
-
-function closePopup() {
-  if (!popup) return;
-
-  popup.classList.remove(
-    "open"
-  );
-
-  popup.setAttribute(
-    "aria-hidden",
-    "true"
-  );
-
-  document.body.classList.remove(
-    "modal-open"
-  );
-
-  sessionStorage.setItem(
-    "samivrah-popup-seen",
-    "yes"
-  );
-}
-
-if (popup) {
-  const seen =
-    sessionStorage.getItem(
-      "samivrah-popup-seen"
-    );
-
-  if (!seen) {
-    window.setTimeout(
-      () => {
-        popup.classList.add(
-          "open"
-        );
-
-        popup.setAttribute(
-          "aria-hidden",
-          "false"
-        );
-
-        document.body
-          .classList
-          .add("modal-open");
-      },
-      2800
-    );
-  }
-
-  popup.addEventListener(
-    "click",
-    (event) => {
-      if (
-        event.target === popup
-      ) {
-        closePopup();
-      }
-    }
-  );
-}
-
-if (popupClose) {
-  popupClose.addEventListener(
-    "click",
-    closePopup
-  );
-}
-
-document.addEventListener(
-  "keydown",
-  (event) => {
-    if (
-      event.key === "Escape"
-    ) {
-      closePopup();
-    }
-  }
-);
+document.querySelectorAll(".faq-list details").forEach((detail) => {
+  detail.addEventListener("toggle", () => {
+    if (!detail.open) return;
+    document.querySelectorAll(".faq-list details").forEach((other) => {
+      if (other !== detail) other.removeAttribute("open");
+    });
+  });
+});

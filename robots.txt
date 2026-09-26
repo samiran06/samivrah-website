@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://samiran06.github.io/samivrah-website/sitemap.xml
+Sitemap: https://samivrah.online/sitemap.xml
