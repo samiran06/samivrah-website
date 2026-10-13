@@ -16,35 +16,13 @@ window.gtag("config", GA4_MEASUREMENT_ID);
 const businessSubject = encodeURIComponent("Business requirement for SAMIVRAH");
 
 const headerHTML = `
-  <div class="utility-bar">
-    <div class="container utility-inner">
-      <p>Digital growth support for service businesses</p>
-      <div>
-        <a href="tel:${SAMIVRAH_PHONE_LINK}">Call ${SAMIVRAH_PHONE_DISPLAY}</a>
-        <a href="mailto:${SAMIVRAH_EMAIL}">${SAMIVRAH_EMAIL}</a>
-      </div>
-    </div>
-  </div>
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="logo" href="index.html" aria-label="SAMIVRAH home">
-        <img src="images/samivrah-logo.png" alt="SAMIVRAH Business Solutions logo">
-      </a>
-      <button class="menu-button" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="main-navigation">
-        <span></span><span></span><span></span>
-      </button>
-      <nav class="main-nav" id="main-navigation" aria-label="Main navigation">
-        <a href="index.html">Home</a>
-        <a href="social-media-management.html">Social Media</a>
-        <a href="web-solutions.html">Web Solutions</a>
-        <a href="taskflow.html">TaskFlow<small>New</small></a>
-        <a href="business-technology-solutions.html">Business Systems</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <a class="button button-dark header-cta" href="contact.html">Get a Proposal <span>↗</span></a>
-    </div>
-  </header>
+  <div class="utility-bar"><div class="container utility-inner"><p>Independent ideas. Practical digital solutions.</p><div><a href="tel:${SAMIVRAH_PHONE_LINK}">${SAMIVRAH_PHONE_DISPLAY}</a><a href="mailto:${SAMIVRAH_EMAIL}">${SAMIVRAH_EMAIL}</a></div></div></div>
+  <header class="site-header"><div class="container nav-wrap">
+    <a class="logo" href="index.html" aria-label="SAMIVRAH home"><img src="images/samivrah-logo.png" alt="SAMIVRAH Business Solutions logo"></a>
+    <button class="menu-button" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="main-navigation"><span></span><span></span><span></span></button>
+    <nav class="main-nav" id="main-navigation" aria-label="Main navigation"><a href="web-solutions.html">Websites</a><a href="social-media-management.html">Social</a><a href="taskflow.html">TaskFlow</a><a href="index.html#selected-work">Our work</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
+    <button class="button button-dark header-cta" type="button" data-project-open>Let's talk <span>↗</span></button>
+  </div></header>
 `;
 
 const footerHTML = `
@@ -130,7 +108,7 @@ document.addEventListener("click", (event) => {
   const contactLink = event.target.closest('a[href^="mailto:"], a[href^="tel:"]');
   if (!contactLink) return;
   const method = contactLink.href.startsWith("tel:") ? "phone" : "email";
-  window.gtag("event", "generate_lead", { method, page_path: window.location.pathname });
+  window.gtag("event", "contact_click", { method, page_path: window.location.pathname });
 });
 
 document.querySelectorAll(".lead-form").forEach((form) => {
@@ -139,12 +117,14 @@ document.querySelectorAll(".lead-form").forEach((form) => {
 
   if (grid && emailInput && !form.querySelector('input[name="phone"]')) {
     const phoneLabel = document.createElement("label");
-    phoneLabel.innerHTML = 'Mobile number *<input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="10-digit mobile number">';
+    phoneLabel.innerHTML = 'Mobile number *<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="10-digit mobile number">';
     emailInput.closest("label").insertAdjacentElement("afterend", phoneLabel);
   }
 
+  form.querySelectorAll('input[name="name"], input[name="email"], select[name="service"]').forEach(field => field.required = true);
   form.addEventListener("submit", (event) => {
     event.preventDefault();
+    if (!form.reportValidity()) return;
     const data = new FormData(form);
     const name = String(data.get("name") || "").trim();
     const phone = String(data.get("phone") || "").trim();
@@ -178,11 +158,12 @@ document.querySelectorAll(".lead-form").forEach((form) => {
       `Requirement: ${requirement || "Please contact me to discuss"}`
     ].join("\n");
 
-    window.gtag("event", "generate_lead", { method: "website_form", service, page_path: window.location.pathname });
+    window.gtag("event", "enquiry_prepared", { method: "website_form", service, page_path: window.location.pathname });
     window.location.href = `mailto:${SAMIVRAH_EMAIL}?subject=${encodeURIComponent(`${service} enquiry from ${name}`)}&body=${encodeURIComponent(message)}`;
   });
 });
 
+if ("IntersectionObserver" in window) document.documentElement.classList.add("reveal-ready");
 const revealItems = document.querySelectorAll("[data-reveal]");
 if ("IntersectionObserver" in window) {
   const revealObserver = new IntersectionObserver((entries) => {
@@ -387,61 +368,76 @@ if (taskflowDemo) {
   });
 }
 
-function createTaskFlowPopup() {
-  if (document.body.classList.contains("taskflow-page")) return;
-  if (sessionStorage.getItem("samivrahTaskFlowPopupSeen") === "yes") return;
 
-  const popup = document.createElement("div");
-  popup.className = "taskflow-popup-backdrop";
-  popup.setAttribute("role", "dialog");
-  popup.setAttribute("aria-modal", "true");
-  popup.setAttribute("aria-labelledby", "taskflow-popup-title");
-  popup.innerHTML = `
-    <div class="taskflow-popup">
-      <button class="taskflow-popup-close" type="button" aria-label="Close TaskFlow announcement">×</button>
-      <div class="taskflow-popup-visual">
-        <div class="taskflow-popup-icon">✓</div>
-        <h3>SAMIVRAH TaskFlow</h3>
-        <p>Task assignment, field updates and management visibility in one practical system.</p>
-      </div>
-      <div class="taskflow-popup-content">
-        <span class="taskflow-popup-kicker">New service · First 3 clients</span>
-        <h2 id="taskflow-popup-title">Stop losing tasks inside calls and chats.</h2>
-        <p>Built for security agencies, facility-management companies and growing service teams.</p>
-        <div class="taskflow-popup-offer">
-          <div><span>Starter</span><strong>₹3,999</strong></div>
-          <div><span>With dashboard</span><strong>₹5,999</strong></div>
-        </div>
-        <div class="taskflow-popup-actions">
-          <a class="button button-rose" href="taskflow.html">View TaskFlow &amp; Live Demo <span>↗</span></a>
-          <button class="taskflow-popup-later" type="button">Maybe later</button>
-        </div>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(popup);
-
-  const closePopup = () => {
-    popup.classList.remove("open");
-    document.body.classList.remove("modal-open");
-    sessionStorage.setItem("samivrahTaskFlowPopupSeen", "yes");
-    window.setTimeout(() => popup.remove(), 300);
-  };
-
-  popup.querySelector(".taskflow-popup-close").addEventListener("click", closePopup);
-  popup.querySelector(".taskflow-popup-later").addEventListener("click", closePopup);
-  popup.addEventListener("click", (event) => { if (event.target === popup) closePopup(); });
-  document.addEventListener("keydown", (event) => { if (event.key === "Escape" && popup.classList.contains("open")) closePopup(); }, { once: true });
-
-  window.setTimeout(() => {
-    popup.classList.add("open");
-    document.body.classList.add("modal-open");
-    popup.querySelector(".taskflow-popup-close").focus();
-  }, 3500);
+// Intentional enquiry popup: opened by visitors, never a timed interruption.
+const projectDialog = document.createElement('dialog');
+projectDialog.className = 'project-dialog';
+projectDialog.setAttribute('aria-labelledby', 'project-dialog-title');
+projectDialog.innerHTML = `
+<div class="project-dialog-grid"><div class="project-dialog-intro"><div><span class="studio-kicker">LET’S MAKE YOUR NEXT MOVE.</span><h2 id="project-dialog-title">A good project<br>starts with<br><em>a conversation.</em></h2><p>Tell us a little about your business. We’ll discuss the scope, timeline and the right next step.</p></div><div class="project-dialog-contact"><a href="tel:${SAMIVRAH_PHONE_LINK}">${SAMIVRAH_PHONE_DISPLAY}</a><br><a href="mailto:${SAMIVRAH_EMAIL}">${SAMIVRAH_EMAIL}</a></div></div><form class="project-dialog-form"><button type="button" class="project-dialog-close" aria-label="Close project enquiry">×</button><label>Your name *<input name="name" autocomplete="name" required maxlength="100" placeholder="What should we call you?"></label><label>Work email *<input name="email" type="email" autocomplete="email" required maxlength="150" placeholder="you@company.com"></label><label>What do you need? *<select name="service" required><option value="">Choose a service</option><option>Business website</option><option>E-commerce website</option><option>Website redesign</option><option>Social media management</option><option>TaskFlow or business system</option><option>Business Growth Starter Package</option></select></label><label>Your idea<textarea name="requirement" maxlength="1500" placeholder="Your business, goals and preferred timeline"></textarea></label><button class="button button-dark" type="submit">Prepare my enquiry <span>↗</span></button><p class="project-dialog-note">Opens a prepared email in your email app. Review and send it there. This website does not store your enquiry.</p><p class="project-feedback" role="status"></p><button class="studio-link copy-project-brief" type="button" hidden>Copy enquiry instead ↗</button></form></div>`;
+document.body.appendChild(projectDialog);
+let projectOpener = null;
+function openProjectDialog(event) {
+  closeMenu();
+  projectOpener = event.currentTarget;
+  const requestedService = projectOpener.dataset.projectService;
+  if (requestedService) projectDialog.querySelector('[name="service"]').value = requestedService;
+  projectDialog.querySelector('.project-feedback').textContent = '';
+  if (typeof projectDialog.showModal !== 'function') { window.location.href = 'contact.html'; return; }
+  projectDialog.showModal();
+  document.body.classList.add('modal-open');
+  window.gtag('event', 'project_enquiry_open', {page_path: window.location.pathname});
 }
-
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", createTaskFlowPopup);
-} else {
-  createTaskFlowPopup();
+document.querySelectorAll('[data-project-open]').forEach(button => button.addEventListener('click', openProjectDialog));
+projectDialog.querySelector('.project-dialog-close').addEventListener('click', () => projectDialog.close());
+projectDialog.addEventListener('click', event => {
+  if (event.target !== projectDialog) return;
+  const r = projectDialog.getBoundingClientRect();
+  if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) projectDialog.close();
+});
+projectDialog.addEventListener('close', () => { document.body.classList.remove('modal-open'); if (projectOpener) projectOpener.focus(); });
+let preparedProjectBrief = '';
+projectDialog.querySelector('form').addEventListener('submit', event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  if (!form.reportValidity()) return;
+  const data = new FormData(form);
+  const name = String(data.get('name') || '').trim();
+  if (!name) { projectDialog.querySelector('.project-feedback').textContent = 'Please enter your name.'; return; }
+  const service = String(data.get('service'));
+  preparedProjectBrief = `Hello SAMIVRAH,\n\nName: ${name}\nEmail: ${data.get('email')}\nService: ${service}\nRequirement: ${String(data.get('requirement') || '').trim() || 'Please contact me to discuss.'}`;
+  projectDialog.querySelector('.project-feedback').textContent = 'Your enquiry is prepared. Send it from your email app, or copy it below and email ' + SAMIVRAH_EMAIL + '.';
+  projectDialog.querySelector('.copy-project-brief').hidden = false;
+  window.gtag('event', 'enquiry_prepared', {service, page_path: window.location.pathname});
+  window.location.href = `mailto:${SAMIVRAH_EMAIL}?subject=${encodeURIComponent(service + ' enquiry from ' + name)}&body=${encodeURIComponent(preparedProjectBrief)}`;
+});
+projectDialog.querySelector('.copy-project-brief').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(preparedProjectBrief); projectDialog.querySelector('.project-feedback').textContent = 'Copied. Paste the enquiry into an email to ' + SAMIVRAH_EMAIL + '.'; }
+  catch { projectDialog.querySelector('.project-feedback').textContent = preparedProjectBrief; projectDialog.querySelector('.project-feedback').style.whiteSpace = 'pre-wrap'; }
+});
+const projectPrompt = document.createElement('button');
+projectPrompt.className = 'project-prompt'; projectPrompt.type = 'button'; projectPrompt.innerHTML = 'Have a project in mind? <span>↗</span>';
+projectPrompt.addEventListener('click', openProjectDialog); document.body.appendChild(projectPrompt);
+const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+const finePointer = window.matchMedia('(pointer: fine)');
+const billboard = document.getElementById('billboard-frame');
+const billboardFace = document.getElementById('billboard-face');
+const lightToggle = document.getElementById('spotlight-toggle');
+if (billboard && billboardFace) {
+  billboard.addEventListener('pointermove', event => {
+    if (!finePointer.matches || motionPreference.matches) return;
+    const r = billboard.getBoundingClientRect(), x = (event.clientX-r.left)/r.width, y = (event.clientY-r.top)/r.height;
+    billboard.style.setProperty('--tilt-x', ((x-.5)*3)+'deg'); billboard.style.setProperty('--tilt-y', ((.5-y)*2)+'deg');
+    billboardFace.style.setProperty('--light-x', (x*100)+'%'); billboardFace.style.setProperty('--light-y', (y*100)+'%');
+  });
+  billboard.addEventListener('pointerleave', () => { billboard.style.setProperty('--tilt-x','0deg'); billboard.style.setProperty('--tilt-y','0deg'); });
+  lightToggle.addEventListener('click', () => { const off = billboardFace.classList.toggle('lights-off'); lightToggle.setAttribute('aria-pressed', String(!off)); lightToggle.innerHTML = '<span class="light-icon">☼</span> Spotlight '+(off?'off':'on'); });
 }
+if (finePointer.matches && !motionPreference.matches) {
+  const cursor = document.createElement('div'); cursor.className = 'studio-cursor'; cursor.setAttribute('aria-hidden','true'); document.body.appendChild(cursor);
+  document.addEventListener('pointermove', event => { if(motionPreference.matches)return; cursor.style.left=event.clientX+'px'; cursor.style.top=event.clientY+'px'; cursor.style.opacity='1'; cursor.classList.toggle('is-link',!!event.target.closest('a,button,summary')); });
+  document.addEventListener('pointerout', event => { if (!event.relatedTarget) cursor.style.opacity='0'; });
+}
+const readingProgress = document.createElement('div'); readingProgress.className='reading-progress';readingProgress.setAttribute('aria-hidden','true');document.body.appendChild(readingProgress);
+let scrollScheduled=false;
+window.addEventListener('scroll',()=>{if(scrollScheduled)return;scrollScheduled=true;requestAnimationFrame(()=>{const height=document.documentElement.scrollHeight-window.innerHeight;readingProgress.style.transform='scaleX('+(height>0?window.scrollY/height:0)+')';scrollScheduled=false;});},{passive:true});
