@@ -20,7 +20,7 @@ const headerHTML = `
   <header class="site-header"><div class="container nav-wrap">
     <a class="logo" href="index.html" aria-label="SAMIVRAH home"><img src="images/samivrah-logo.png" alt="SAMIVRAH Business Solutions logo"></a>
     <button class="menu-button" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="main-navigation"><span></span><span></span><span></span></button>
-    <nav class="main-nav" id="main-navigation" aria-label="Main navigation"><a href="web-solutions.html">Websites</a><a href="social-media-management.html">Social</a><a href="taskflow.html">TaskFlow</a><a href="index.html#selected-work">Our work</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
+    <nav class="main-nav" id="main-navigation" aria-label="Main navigation"><a href="web-solutions.html">Websites</a><a href="social-media-management.html">Social</a><a href="taskflow.html">TaskFlow</a><a href="hiredesk/">HireDesk</a><a href="index.html#selected-work">Our work</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
     <button class="button button-dark header-cta" type="button" data-project-open>Let's talk <span>↗</span></button>
   </div></header>
 `;
@@ -40,7 +40,7 @@ const footerHTML = `
         <p class="footer-title">Services</p>
         <a href="web-solutions.html">Business websites</a>
         <a href="social-media-management.html">Social media management</a>
-        <a href="taskflow.html">TaskFlow delegation system</a>
+        <a href="taskflow.html">TaskFlow delegation system</a><a href="hiredesk/">HireDesk hiring workflow</a>
         <a href="business-technology-solutions.html">Lead tracking &amp; business systems</a>
       </div>
       <div class="footer-col">
